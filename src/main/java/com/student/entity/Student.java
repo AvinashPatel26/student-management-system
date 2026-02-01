@@ -30,10 +30,11 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String firstName;
+    private String name;
     private String lastName;
     private String email;
     private String phone;
+    private Integer age;
 
     private LocalDate dateOfBirth;
     private LocalDate enrollmentDate;
