@@ -8,7 +8,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.student.entity.Student;
+import com.student.entity.User;
 import com.student.repository.StudentRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class StudentService {
@@ -43,7 +46,7 @@ public class StudentService {
                 .orElseThrow(() ->
                         new RuntimeException("Student with id " + id + " not found"));
 
-        existingStudent.setName(updateStudentDetails.getName());
+        existingStudent.setFirstName(updateStudentDetails.getFirstName());
         existingStudent.setEmail(updateStudentDetails.getEmail());
         existingStudent.setAge(updateStudentDetails.getAge());
 
@@ -56,6 +59,10 @@ public class StudentService {
     public List<Student> search(String keyword) {
         return studentRepository
             .findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(keyword, keyword);
+    }
+    @Transactional
+    public List<Student> saveAllStudents(List<Student> students) {
+        return studentRepository.saveAll(students);
     }
 
 }
